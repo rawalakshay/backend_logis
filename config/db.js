@@ -1,10 +1,7 @@
 const mongoose = require('mongoose');
-// const { DB_URI } = require('./config');
-console.log('database.js')
 const connectDB = async () => {
     try {
-        console.log('MongoDB connected before');
-        await mongoose.connect("mongodb://127.0.0.1:27017/logis", {
+        await mongoose.connect(process.env.DB_STRING, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });

@@ -19,3 +19,19 @@ exports.createUser = async (req, res) => {
         res.status(500).json({ message: 'Error creating user' });
     }
 };
+
+exports.login = async (req, res) => {
+    const userId = req.body.userId;
+    const password = req.body.password;
+    if (!userId || !password) return res.status(500).json({ message: 'userId and password required' });
+    try {
+        const user = await User.findOne({ userId, password });
+        if (user) {
+            return res.status(200).json({ success: true, msg: 'login success' });
+        }
+        return res.status(401).json({ success: false, msg: 'wrong user and pass' });
+    } catch (err) {
+        console.error('login err:>>', err);
+        res.status(500).json({ message: 'Error creating user' });
+    }
+};
